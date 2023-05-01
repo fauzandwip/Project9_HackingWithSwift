@@ -16,6 +16,7 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Credit", style: .plain, target: self, action: #selector(getCredit))
+        navigationController?.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(containText))
         
         getData()
     }
@@ -27,6 +28,18 @@ class ViewController: UITableViewController {
         present(ac, animated: true)
     }
     
+    @objc func containText() {
+        let ac = UIAlertController(title: "Type text...", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [weak self, weak ac] action in
+            guard let word = ac?.textFields?[0].text else { return }
+            self?.submit(word)
+        }
+        ac.addAction(submitAction)
+        
+        present(ac, animated: true)
+    }
     func submit(_ word: String) {
         petitions.removeAll()
         
