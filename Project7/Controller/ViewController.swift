@@ -15,7 +15,16 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Credit", style: .plain, target: self, action: #selector(getCredit))
+        
         getData()
+    }
+    
+    @objc func getCredit() {
+        let ac = UIAlertController(title: "Credit :", message: "The data comes from the We The People API of the Whitehouse.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        present(ac, animated: true)
     }
     
     func submit(_ word: String) {
